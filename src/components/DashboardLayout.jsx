@@ -22,7 +22,7 @@ export function DashboardLayout({ children }) {
     <div className="min-h-screen bg-gray-50">
       <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-10 dark:bg-gray-800 dark:border-gray-700">
         <div className="w-full px-3 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex flex-wrap items-center justify-between gap-2 min-h-[64px] py-2">
             <div className="flex items-center space-x-3">
               <div className="bg-blue-600 rounded-lg p-2">
                 <DollarSign className="w-6 h-6 text-white" />
@@ -31,24 +31,23 @@ export function DashboardLayout({ children }) {
                 Finance Dashboard
               </h1>
             </div>
-
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 max-w-full">
               <div className="flex items-center bg-gray-100 rounded-lg p-1 dark:bg-gray-700">
                 <button
                   onClick={() => setUserRole("viewer")}
-                  className={`flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  className={`flex items-center space-x-2 px-2 sm:px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                     userRole === "viewer"
                       ? "bg-white text-gray-900 shadow-sm dark:bg-gray-600 dark:text-white"
                       : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   }`}
                 >
                   <Eye className="w-4 h-4" />
-                  <span>Viewer</span>
+                  <span className="hidden sm:inline">Viewer</span>
                 </button>
 
                 <button
                   onClick={() => setUserRole("admin")}
-                  className={`flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                  className={`flex items-center space-x-2 px-2 sm:px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                     userRole === "admin"
                       ? "bg-white text-gray-900 shadow-sm dark:bg-gray-600 dark:text-white"
                       : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
@@ -60,15 +59,13 @@ export function DashboardLayout({ children }) {
               </div>
               <button
                 onClick={() => setDarkMode(!darkMode)}
-                className="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700"
+                className="px-2 sm:px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-700"
               >
                 {darkMode ? "🌙 Dark" : "☀️ Light"}
               </button>
-
               <div className="text-sm text-gray-600 hidden sm:block dark:text-gray-400">
                 {user?.email}
               </div>
-
               <button
                 onClick={() => signOut()}
                 className="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"
