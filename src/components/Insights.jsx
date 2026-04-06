@@ -94,8 +94,12 @@ export function Insights({ transactions }) {
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 dark:bg-gray-700 dark:text-white">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-white
-      ">Insights</h3>
+      <h3
+        className="text-lg font-semibold text-gray-900 mb-4 dark:text-white
+      "
+      >
+        Insights
+      </h3>
 
       <div className="space-y-4">
         {insights.highestSpendingCategory && (
@@ -164,7 +168,7 @@ export function Insights({ transactions }) {
                     {Math.abs(insights.expenseChange).toFixed(1)}%
                   </span>{" "}
                   compared to last month (
-                  {insights.expenseChange > 0 ? "+" : "-"}$
+                  {insights.expenseChange > 0 ? "+" : "-"}₹
                   {Math.abs(
                     insights.currentMonthExpenses - insights.lastMonthExpenses,
                   ).toLocaleString("en-US", {
@@ -249,7 +253,7 @@ export function Insights({ transactions }) {
             <p className="text-sm text-gray-700 mt-1">
               You spend an average of{" "}
               <span className="font-bold">
-                ${insights.averageDailyExpense.toFixed(2)}
+                ₹{insights.averageDailyExpense.toFixed(2)}
               </span>{" "}
               per day
             </p>
