@@ -153,7 +153,7 @@ export function BalanceTrendChart({ transactions }) {
                   fontSize="12"
                   fill="#6b7280"
                 >
-                  ${value.toFixed(0)}
+                  ₹{value.toFixed(0)}
                 </text>
               </g>
             );

@@ -37,11 +37,11 @@ export function CategoryBreakdownChart({ transactions }) {
 
   if (categoryData.length === 0) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 dark:bg-gray-700 dark:text-white">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4 dark:text-white">
           Spending by Category
         </h3>
-        <div className="h-64 flex items-center justify-center text-gray-500">
+        <div className="h-64 flex items-center justify-center text-gray-500 dark:text-gray-400">
           No expense data available
         </div>
       </div>
@@ -56,8 +56,18 @@ export function CategoryBreakdownChart({ transactions }) {
   let currentAngle = -90;
 
   const slices = categoryData.map((data, index) => {
-    const startAngle = currentAngle;
     const sliceAngle = (data.percentage / 100) * 360;
+
+    // 🔥 FULL CIRCLE CASE (only one category)
+    if (sliceAngle >= 359.9) {
+      return {
+        ...data,
+        fullCircle: true,
+        color: COLORS[index % COLORS.length],
+      };
+    }
+
+    const startAngle = currentAngle;
     const endAngle = startAngle + sliceAngle;
 
     currentAngle = endAngle;
@@ -94,21 +104,31 @@ export function CategoryBreakdownChart({ transactions }) {
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6">
         <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[200px]">
-          {slices.map((slice, index) => (
-            <path
-              key={index}
-              d={slice.pathD}
-              fill={slice.color}
-              className="hover:opacity-80 transition-opacity cursor-pointer"
-            />
-          ))}
+          {slices.map((slice, index) =>
+            slice.fullCircle ? (
+              <circle
+                key={index}
+                cx={centerX}
+                cy={centerY}
+                r={radius}
+                fill={slice.color}
+              />
+            ) : (
+              <path
+                key={index}
+                d={slice.pathD}
+                fill={slice.color}
+                className="hover:opacity-80 transition-opacity cursor-pointer"
+              />
+            ),
+          )}
         </svg>
 
         <div className="flex-1 w-full space-y-2">
           {slices.map((slice, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
+              className="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-lg transition-colors cursor-pointer"
             >
               <div className="flex items-center space-x-3">
                 <div
